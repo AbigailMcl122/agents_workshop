@@ -1,0 +1,97 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >> endobj
+4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+5 0 obj << /Length 1795 >> stream
+BT
+/F1 11 Tf
+72 770 Td
+14 TL
+(Sleep and Memory Report \(APA 7 Structured Sections\)) Tj
+T*
+() Tj
+T*
+(Introduction) Tj
+T*
+(Sleep is often linked to stronger memory consolidation, and targeted memory reactivation \(TMR\)) Tj
+T*
+(is proposed to further support recall. This report summarizes a 2x2 between-participants study) Tj
+T*
+(with Sleep \(Sleep, Wake\) and Cue \(TMR, Control\) conditions. Analyses below are descriptive only.) Tj
+T*
+() Tj
+T*
+(Study Summary) Tj
+T*
+(The dataset contains N = 80 participants. The dependent variable is recall_score \(0-40\).) Tj
+T*
+(Design: Sleep vs Wake and TMR vs Control, with 20 participants in each cell.) Tj
+T*
+() Tj
+T*
+(Method) Tj
+T*
+(Participants completed a word-pair recall task after assignment to one sleep condition and one cue condition.) Tj
+T*
+(No inferential tests are reported here; all values are direct descriptive summaries from the data.) Tj
+T*
+() Tj
+T*
+(Results) Tj
+T*
+(Overall Descriptive Statistics) Tj
+T*
+(Overall recall: M = 25.62, SD = 4.60, Median = 25.19,) Tj
+T*
+(Range = [14.43, 35.64].) Tj
+T*
+() Tj
+T*
+(Descriptive Statistics by Condition) Tj
+T*
+(Sleep:   M = 28.17, SD = 4.07 \(n=40\)) Tj
+T*
+(Wake:    M = 23.06, SD = 3.58 \(n=40\)) Tj
+T*
+(TMR:     M = 27.19, SD = 4.45 \(n=40\)) Tj
+T*
+(Control: M = 24.04, SD = 4.23 \(n=40\)) Tj
+T*
+() Tj
+T*
+(Cell-Level Descriptive Statistics \(Sleep x Cue\)) Tj
+T*
+(Sleep-Control: M = 26.49, SD = 3.58) Tj
+T*
+(Sleep-TMR:     M = 29.85, SD = 3.92) Tj
+T*
+(Wake-Control:  M = 21.58, SD = 3.36) Tj
+T*
+(Wake-TMR:      M = 24.54, SD = 3.22) Tj
+T*
+() Tj
+T*
+(Interactive Figure) Tj
+T*
+(An interactive graph is provided in reports/sleep_memory_interactive_graph.html.) Tj
+T*
+() Tj
+T*
+(Note) Tj
+T*
+(All reported values were computed from the provided dataset without added or fabricated results.) Tj
+ET
+endstream endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+2158
+%%EOF

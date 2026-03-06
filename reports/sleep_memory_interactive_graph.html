@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sleep × Cue Interactive Graph</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    #plot { width: 100%; max-width: 900px; height: 520px; }
+  </style>
+</head>
+<body>
+  <h1>Interactive Figure 1</h1>
+  <p>Recall score by Sleep (Sleep vs Wake) and Cue (Control vs TMR). Hover for means and SD.</p>
+  <div id="plot"></div>
+  <script>
+    const traceSleep = {
+      x: ["Control", "TMR"],
+      y: [26.493, 29.852],
+      mode: 'lines+markers',
+      name: 'Sleep',
+      error_y: { type: 'data', array: [3.577801589038486, 3.9154707991437467], visible: true },
+      hovertemplate: 'Condition: Sleep<br>Cue: %{x}<br>Mean: %{y:.2f}<extra></extra>'
+    };
+
+    const traceWake = {
+      x: ["Control", "TMR"],
+      y: [21.582, 24.5365],
+      mode: 'lines+markers',
+      name: 'Wake',
+      error_y: { type: 'data', array: [3.358257066740989, 3.2208192403404707], visible: true },
+      hovertemplate: 'Condition: Wake<br>Cue: %{x}<br>Mean: %{y:.2f}<extra></extra>'
+    };
+
+    const layout = {
+      title: 'Recall Performance Across Sleep and Cue Conditions',
+      xaxis: { title: 'Cue Condition' },
+      yaxis: { title: 'Recall Score (0–40)' },
+      template: 'plotly_white'
+    };
+
+    Plotly.newPlot('plot', [traceSleep, traceWake], layout, {responsive: true});
+  </script>
+</body>
+</html>

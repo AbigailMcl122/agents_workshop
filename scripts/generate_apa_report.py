@@ -1,5 +1,6 @@
 import csv
 import json
+import argparse
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean, median, stdev
@@ -214,7 +215,18 @@ def build_report_lines(rows, overall, sleep_stats, cue_stats, cell_stats):
     return lines
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Generate APA-style sleep-memory report artifacts.')
+    parser.add_argument(
+        '--pdf-output',
+        default='sleep_memory_apa7_report.pdf',
+        help='PDF filename to write under reports/ (default: sleep_memory_apa7_report.pdf)',
+    )
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
     rows = read_data(DATA_PATH)
     scores = [float(r['recall_score']) for r in rows]
 
@@ -245,7 +257,7 @@ def main():
     build_interactive_html(cell_stats, OUT_DIR / 'sleep_memory_interactive_graph.html')
 
     report_lines = build_report_lines(rows, overall, sleep_stats, cue_stats, cell_stats)
-    build_multi_page_pdf(report_lines, OUT_DIR / 'sleep_memory_apa7_report.pdf')
+    build_multi_page_pdf(report_lines, OUT_DIR / args.pdf_output)
 
 
 if __name__ == '__main__':

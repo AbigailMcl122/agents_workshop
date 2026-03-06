@@ -30,7 +30,6 @@ def fmt(x):
 
 
 def build_interactive_html(cell_stats, html_path: Path):
-    # Use Plotly via CDN for interactivity without Python plotting dependencies.
     x = ['Control', 'TMR']
     sleep_means = [cell_stats[('Sleep', c)]['mean'] for c in x]
     wake_means = [cell_stats[('Wake', c)]['mean'] for c in x]
@@ -91,9 +90,8 @@ def escape_pdf_text(text):
     return text.replace('\\', '\\\\').replace('(', '\\(').replace(')', '\\)')
 
 
-def build_simple_pdf(lines, pdf_path: Path):
-    # Minimal one-page PDF writer (Helvetica, text only)
-    content_lines = ["BT", "/F1 11 Tf", "72 770 Td", "14 TL"]
+def _content_stream(lines):
+    content_lines = ["BT", "/F1 10 Tf", "72 770 Td", "13 TL"]
     first = True
     for line in lines:
         if first:
@@ -103,28 +101,117 @@ def build_simple_pdf(lines, pdf_path: Path):
             content_lines.append("T*")
             content_lines.append(f"({escape_pdf_text(line)}) Tj")
     content_lines.append("ET")
-    stream = "\n".join(content_lines).encode('latin-1', errors='replace')
+    return "\n".join(content_lines).encode('latin-1', errors='replace')
+
+
+def build_multi_page_pdf(lines, pdf_path: Path, lines_per_page: int = 50):
+    pages = [lines[i:i + lines_per_page] for i in range(0, len(lines), lines_per_page)]
+    if not pages:
+        pages = [[]]
 
     objects = []
+    # 1 catalog, 2 pages, 3 font
     objects.append(b"1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n")
-    objects.append(b"2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n")
-    objects.append(b"3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >> endobj\n")
-    objects.append(b"4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj\n")
-    objects.append(f"5 0 obj << /Length {len(stream)} >> stream\n".encode('latin-1') + stream + b"\nendstream endobj\n")
+
+    # placeholder for pages object at index 1 in objects list
+    objects.append(b"")
+
+    objects.append(b"3 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj\n")
+
+    next_obj_num = 4
+    page_obj_nums = []
+    content_obj_nums = []
+    for _ in pages:
+        page_obj_nums.append(next_obj_num)
+        next_obj_num += 1
+        content_obj_nums.append(next_obj_num)
+        next_obj_num += 1
+
+    kids = " ".join(f"{n} 0 R" for n in page_obj_nums)
+    objects[1] = f"2 0 obj << /Type /Pages /Kids [{kids}] /Count {len(page_obj_nums)} >> endobj\n".encode('latin-1')
+
+    for page_obj, content_obj, page_lines in zip(page_obj_nums, content_obj_nums, pages):
+        page = f"{page_obj} 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents {content_obj} 0 R >> endobj\n"
+        stream = _content_stream(page_lines)
+        content = f"{content_obj} 0 obj << /Length {len(stream)} >> stream\n".encode('latin-1') + stream + b"\nendstream endobj\n"
+        objects.append(page.encode('latin-1'))
+        objects.append(content)
 
     pdf = bytearray(b"%PDF-1.4\n")
-    xref = [0]
+    offsets = [0]
     for obj in objects:
-        xref.append(len(pdf))
+        offsets.append(len(pdf))
         pdf.extend(obj)
+
     xref_start = len(pdf)
-    pdf.extend(f"xref\n0 {len(xref)}\n".encode('latin-1'))
+    pdf.extend(f"xref\n0 {len(offsets)}\n".encode('latin-1'))
     pdf.extend(b"0000000000 65535 f \n")
-    for off in xref[1:]:
+    for off in offsets[1:]:
         pdf.extend(f"{off:010d} 00000 n \n".encode('latin-1'))
-    pdf.extend(f"trailer << /Size {len(xref)} /Root 1 0 R >>\nstartxref\n{xref_start}\n%%EOF\n".encode('latin-1'))
+    pdf.extend(f"trailer << /Size {len(offsets)} /Root 1 0 R >>\nstartxref\n{xref_start}\n%%EOF\n".encode('latin-1'))
 
     pdf_path.write_bytes(pdf)
+
+
+def build_report_lines(rows, overall, sleep_stats, cue_stats, cell_stats):
+    lines = [
+        "Sleep and Memory Report (APA 7 Structured Sections)",
+        "",
+        "Title Page",
+        "Sleep, Cueing, and Recall Performance in a 2x2 Between-Participants Study",
+        "",
+        "Introduction",
+        "Sleep is often associated with memory consolidation, while targeted memory reactivation (TMR)",
+        "is hypothesized to improve recall beyond control conditions.",
+        "",
+        "Study Summary",
+        f"Dataset size: N = {overall['n']} participants.",
+        "Design: 2x2 between-participants factors: Sleep (Sleep vs Wake) and Cue (TMR vs Control).",
+        "Outcome: recall_score (0 to 40).",
+        "",
+        "Method",
+        "Participants completed a word-pair learning and recall task under assigned sleep and cue conditions.",
+        "This report contains descriptive statistics only; no inferential claims are made.",
+        "",
+        "Results: Overall Descriptive Statistics",
+        f"Overall recall score: M = {fmt(overall['mean'])}, SD = {fmt(overall['sd'])}, Median = {fmt(overall['median'])},",
+        f"Range = [{fmt(overall['min'])}, {fmt(overall['max'])}]",
+        "",
+        "Results: By Sleep Condition",
+        f"Sleep: n = {sleep_stats['Sleep']['n']}, M = {fmt(sleep_stats['Sleep']['mean'])}, SD = {fmt(sleep_stats['Sleep']['sd'])},",
+        f"Median = {fmt(sleep_stats['Sleep']['median'])}, Range = [{fmt(sleep_stats['Sleep']['min'])}, {fmt(sleep_stats['Sleep']['max'])}]",
+        f"Wake:  n = {sleep_stats['Wake']['n']}, M = {fmt(sleep_stats['Wake']['mean'])}, SD = {fmt(sleep_stats['Wake']['sd'])},",
+        f"Median = {fmt(sleep_stats['Wake']['median'])}, Range = [{fmt(sleep_stats['Wake']['min'])}, {fmt(sleep_stats['Wake']['max'])}]",
+        "",
+        "Results: By Cue Condition",
+        f"TMR:     n = {cue_stats['TMR']['n']}, M = {fmt(cue_stats['TMR']['mean'])}, SD = {fmt(cue_stats['TMR']['sd'])},",
+        f"Median = {fmt(cue_stats['TMR']['median'])}, Range = [{fmt(cue_stats['TMR']['min'])}, {fmt(cue_stats['TMR']['max'])}]",
+        f"Control: n = {cue_stats['Control']['n']}, M = {fmt(cue_stats['Control']['mean'])}, SD = {fmt(cue_stats['Control']['sd'])},",
+        f"Median = {fmt(cue_stats['Control']['median'])}, Range = [{fmt(cue_stats['Control']['min'])}, {fmt(cue_stats['Control']['max'])}]",
+        "",
+        "Results: Cell-Level Statistics (Sleep x Cue)",
+        f"Sleep-Control: n = {cell_stats[('Sleep', 'Control')]['n']}, M = {fmt(cell_stats[('Sleep', 'Control')]['mean'])}, SD = {fmt(cell_stats[('Sleep', 'Control')]['sd'])}",
+        f"Sleep-TMR:     n = {cell_stats[('Sleep', 'TMR')]['n']}, M = {fmt(cell_stats[('Sleep', 'TMR')]['mean'])}, SD = {fmt(cell_stats[('Sleep', 'TMR')]['sd'])}",
+        f"Wake-Control:  n = {cell_stats[('Wake', 'Control')]['n']}, M = {fmt(cell_stats[('Wake', 'Control')]['mean'])}, SD = {fmt(cell_stats[('Wake', 'Control')]['sd'])}",
+        f"Wake-TMR:      n = {cell_stats[('Wake', 'TMR')]['n']}, M = {fmt(cell_stats[('Wake', 'TMR')]['mean'])}, SD = {fmt(cell_stats[('Wake', 'TMR')]['sd'])}",
+        "",
+        "Complete Provided Data (All Rows)",
+        "id | sleep | cue | recall_score",
+        "--------------------------------",
+    ]
+
+    for row in rows:
+        lines.append(f"{row['id']} | {row['sleep']} | {row['cue']} | {row['recall_score']}")
+
+    lines.extend([
+        "",
+        "Interactive Graph",
+        "An interactive Plotly graph is available at: reports/sleep_memory_interactive_graph.html",
+        "",
+        "Data Integrity Note",
+        "All values in this PDF were computed or transcribed from the provided CSV without fabrication.",
+    ])
+    return lines
 
 
 def main():
@@ -155,51 +242,10 @@ def main():
     }
     (OUT_DIR / 'descriptive_statistics.json').write_text(json.dumps(stats_output, indent=2), encoding='utf-8')
 
-    html_path = OUT_DIR / 'sleep_memory_interactive_graph.html'
-    build_interactive_html(cell_stats, html_path)
+    build_interactive_html(cell_stats, OUT_DIR / 'sleep_memory_interactive_graph.html')
 
-    lines = [
-        "Sleep and Memory Report (APA 7 Structured Sections)",
-        "",
-        "Introduction",
-        "Sleep is often linked to stronger memory consolidation, and targeted memory reactivation (TMR)",
-        "is proposed to further support recall. This report summarizes a 2x2 between-participants study",
-        "with Sleep (Sleep, Wake) and Cue (TMR, Control) conditions. Analyses below are descriptive only.",
-        "",
-        "Study Summary",
-        f"The dataset contains N = {overall['n']} participants. The dependent variable is recall_score (0-40).",
-        "Design: Sleep vs Wake and TMR vs Control, with 20 participants in each cell.",
-        "",
-        "Method",
-        "Participants completed a word-pair recall task after assignment to one sleep condition and one cue condition.",
-        "No inferential tests are reported here; all values are direct descriptive summaries from the data.",
-        "",
-        "Results",
-        "Overall Descriptive Statistics",
-        f"Overall recall: M = {fmt(overall['mean'])}, SD = {fmt(overall['sd'])}, Median = {fmt(overall['median'])},",
-        f"Range = [{fmt(overall['min'])}, {fmt(overall['max'])}].",
-        "",
-        "Descriptive Statistics by Condition",
-        f"Sleep:   M = {fmt(sleep_stats['Sleep']['mean'])}, SD = {fmt(sleep_stats['Sleep']['sd'])} (n={sleep_stats['Sleep']['n']})",
-        f"Wake:    M = {fmt(sleep_stats['Wake']['mean'])}, SD = {fmt(sleep_stats['Wake']['sd'])} (n={sleep_stats['Wake']['n']})",
-        f"TMR:     M = {fmt(cue_stats['TMR']['mean'])}, SD = {fmt(cue_stats['TMR']['sd'])} (n={cue_stats['TMR']['n']})",
-        f"Control: M = {fmt(cue_stats['Control']['mean'])}, SD = {fmt(cue_stats['Control']['sd'])} (n={cue_stats['Control']['n']})",
-        "",
-        "Cell-Level Descriptive Statistics (Sleep x Cue)",
-        f"Sleep-Control: M = {fmt(cell_stats[('Sleep', 'Control')]['mean'])}, SD = {fmt(cell_stats[('Sleep', 'Control')]['sd'])}",
-        f"Sleep-TMR:     M = {fmt(cell_stats[('Sleep', 'TMR')]['mean'])}, SD = {fmt(cell_stats[('Sleep', 'TMR')]['sd'])}",
-        f"Wake-Control:  M = {fmt(cell_stats[('Wake', 'Control')]['mean'])}, SD = {fmt(cell_stats[('Wake', 'Control')]['sd'])}",
-        f"Wake-TMR:      M = {fmt(cell_stats[('Wake', 'TMR')]['mean'])}, SD = {fmt(cell_stats[('Wake', 'TMR')]['sd'])}",
-        "",
-        "Interactive Figure",
-        "An interactive graph is provided in reports/sleep_memory_interactive_graph.html.",
-        "",
-        "Note",
-        "All reported values were computed from the provided dataset without added or fabricated results.",
-    ]
-
-    pdf_path = OUT_DIR / 'sleep_memory_apa7_report.pdf'
-    build_simple_pdf(lines, pdf_path)
+    report_lines = build_report_lines(rows, overall, sleep_stats, cue_stats, cell_stats)
+    build_multi_page_pdf(report_lines, OUT_DIR / 'sleep_memory_apa7_report.pdf')
 
 
 if __name__ == '__main__':

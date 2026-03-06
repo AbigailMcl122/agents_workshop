@@ -1,97 +1,299 @@
 %PDF-1.4
 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
-2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
-3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >> endobj
-4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
-5 0 obj << /Length 1795 >> stream
+2 0 obj << /Type /Pages /Kids [4 0 R 6 0 R 8 0 R] /Count 3 >> endobj
+3 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+4 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >> endobj
+5 0 obj << /Length 2091 >> stream
 BT
-/F1 11 Tf
+/F1 10 Tf
 72 770 Td
-14 TL
+13 TL
 (Sleep and Memory Report \(APA 7 Structured Sections\)) Tj
+T*
+() Tj
+T*
+(Title Page) Tj
+T*
+(Sleep, Cueing, and Recall Performance in a 2x2 Between-Participants Study) Tj
 T*
 () Tj
 T*
 (Introduction) Tj
 T*
-(Sleep is often linked to stronger memory consolidation, and targeted memory reactivation \(TMR\)) Tj
+(Sleep is often associated with memory consolidation, while targeted memory reactivation \(TMR\)) Tj
 T*
-(is proposed to further support recall. This report summarizes a 2x2 between-participants study) Tj
-T*
-(with Sleep \(Sleep, Wake\) and Cue \(TMR, Control\) conditions. Analyses below are descriptive only.) Tj
+(is hypothesized to improve recall beyond control conditions.) Tj
 T*
 () Tj
 T*
 (Study Summary) Tj
 T*
-(The dataset contains N = 80 participants. The dependent variable is recall_score \(0-40\).) Tj
+(Dataset size: N = 80 participants.) Tj
 T*
-(Design: Sleep vs Wake and TMR vs Control, with 20 participants in each cell.) Tj
+(Design: 2x2 between-participants factors: Sleep \(Sleep vs Wake\) and Cue \(TMR vs Control\).) Tj
+T*
+(Outcome: recall_score \(0 to 40\).) Tj
 T*
 () Tj
 T*
 (Method) Tj
 T*
-(Participants completed a word-pair recall task after assignment to one sleep condition and one cue condition.) Tj
+(Participants completed a word-pair learning and recall task under assigned sleep and cue conditions.) Tj
 T*
-(No inferential tests are reported here; all values are direct descriptive summaries from the data.) Tj
-T*
-() Tj
-T*
-(Results) Tj
-T*
-(Overall Descriptive Statistics) Tj
-T*
-(Overall recall: M = 25.62, SD = 4.60, Median = 25.19,) Tj
-T*
-(Range = [14.43, 35.64].) Tj
+(This report contains descriptive statistics only; no inferential claims are made.) Tj
 T*
 () Tj
 T*
-(Descriptive Statistics by Condition) Tj
+(Results: Overall Descriptive Statistics) Tj
 T*
-(Sleep:   M = 28.17, SD = 4.07 \(n=40\)) Tj
+(Overall recall score: M = 25.62, SD = 4.60, Median = 25.19,) Tj
 T*
-(Wake:    M = 23.06, SD = 3.58 \(n=40\)) Tj
-T*
-(TMR:     M = 27.19, SD = 4.45 \(n=40\)) Tj
-T*
-(Control: M = 24.04, SD = 4.23 \(n=40\)) Tj
+(Range = [14.43, 35.64]) Tj
 T*
 () Tj
 T*
-(Cell-Level Descriptive Statistics \(Sleep x Cue\)) Tj
+(Results: By Sleep Condition) Tj
 T*
-(Sleep-Control: M = 26.49, SD = 3.58) Tj
+(Sleep: n = 40, M = 28.17, SD = 4.07,) Tj
 T*
-(Sleep-TMR:     M = 29.85, SD = 3.92) Tj
+(Median = 28.17, Range = [21.22, 35.64]) Tj
 T*
-(Wake-Control:  M = 21.58, SD = 3.36) Tj
+(Wake:  n = 40, M = 23.06, SD = 3.58,) Tj
 T*
-(Wake-TMR:      M = 24.54, SD = 3.22) Tj
-T*
-() Tj
-T*
-(Interactive Figure) Tj
-T*
-(An interactive graph is provided in reports/sleep_memory_interactive_graph.html.) Tj
+(Median = 23.50, Range = [14.43, 30.73]) Tj
 T*
 () Tj
 T*
-(Note) Tj
+(Results: By Cue Condition) Tj
 T*
-(All reported values were computed from the provided dataset without added or fabricated results.) Tj
+(TMR:     n = 40, M = 27.19, SD = 4.45,) Tj
+T*
+(Median = 26.64, Range = [17.44, 35.07]) Tj
+T*
+(Control: n = 40, M = 24.04, SD = 4.23,) Tj
+T*
+(Median = 24.20, Range = [14.43, 35.64]) Tj
+T*
+() Tj
+T*
+(Results: Cell-Level Statistics \(Sleep x Cue\)) Tj
+T*
+(Sleep-Control: n = 20, M = 26.49, SD = 3.58) Tj
+T*
+(Sleep-TMR:     n = 20, M = 29.85, SD = 3.92) Tj
+T*
+(Wake-Control:  n = 20, M = 21.58, SD = 3.36) Tj
+T*
+(Wake-TMR:      n = 20, M = 24.54, SD = 3.22) Tj
+T*
+() Tj
+T*
+(Complete Provided Data \(All Rows\)) Tj
+T*
+(id | sleep | cue | recall_score) Tj
+T*
+(--------------------------------) Tj
+T*
+(1 | Sleep | TMR | 31.37) Tj
+T*
+(2 | Sleep | TMR | 25.32) Tj
+T*
+(3 | Sleep | TMR | 33.38) Tj
+T*
+(4 | Sleep | TMR | 34.23) Tj
+T*
+(5 | Sleep | TMR | 21.22) Tj
+T*
+(6 | Sleep | TMR | 24.14) Tj
+T*
+(7 | Sleep | TMR | 30.58) Tj
+ET
+endstream endobj
+6 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >> endobj
+7 0 obj << /Length 1731 >> stream
+BT
+/F1 10 Tf
+72 770 Td
+13 TL
+(8 | Sleep | TMR | 28.58) Tj
+T*
+(9 | Sleep | TMR | 29.92) Tj
+T*
+(10 | Sleep | TMR | 26.16) Tj
+T*
+(11 | Sleep | TMR | 33.96) Tj
+T*
+(12 | Sleep | TMR | 33.5) Tj
+T*
+(13 | Sleep | TMR | 30.3) Tj
+T*
+(14 | Sleep | TMR | 35.07) Tj
+T*
+(15 | Sleep | TMR | 32.1) Tj
+T*
+(16 | Sleep | TMR | 26.13) Tj
+T*
+(17 | Sleep | TMR | 31.66) Tj
+T*
+(18 | Sleep | TMR | 25.69) Tj
+T*
+(19 | Sleep | TMR | 33.95) Tj
+T*
+(20 | Sleep | TMR | 29.78) Tj
+T*
+(21 | Sleep | Control | 25.17) Tj
+T*
+(22 | Sleep | Control | 22.94) Tj
+T*
+(23 | Sleep | Control | 31.5) Tj
+T*
+(24 | Sleep | Control | 25.3) Tj
+T*
+(25 | Sleep | Control | 24.07) Tj
+T*
+(26 | Sleep | Control | 24.42) Tj
+T*
+(27 | Sleep | Control | 28.4) Tj
+T*
+(28 | Sleep | Control | 27.64) Tj
+T*
+(29 | Sleep | Control | 27.86) Tj
+T*
+(30 | Sleep | Control | 27.94) Tj
+T*
+(31 | Sleep | Control | 35.64) Tj
+T*
+(32 | Sleep | Control | 24.17) Tj
+T*
+(33 | Sleep | Control | 23.69) Tj
+T*
+(34 | Sleep | Control | 22.34) Tj
+T*
+(35 | Sleep | Control | 28.77) Tj
+T*
+(36 | Sleep | Control | 31.08) Tj
+T*
+(37 | Sleep | Control | 25.49) Tj
+T*
+(38 | Sleep | Control | 22.22) Tj
+T*
+(39 | Sleep | Control | 22.29) Tj
+T*
+(40 | Sleep | Control | 28.93) Tj
+T*
+(41 | Wake | TMR | 27.34) Tj
+T*
+(42 | Wake | TMR | 26.44) Tj
+T*
+(43 | Wake | TMR | 21.01) Tj
+T*
+(44 | Wake | TMR | 25.04) Tj
+T*
+(45 | Wake | TMR | 24.53) Tj
+T*
+(46 | Wake | TMR | 24.98) Tj
+T*
+(47 | Wake | TMR | 27.92) Tj
+T*
+(48 | Wake | TMR | 25.01) Tj
+T*
+(49 | Wake | TMR | 27.06) Tj
+T*
+(50 | Wake | TMR | 24.3) Tj
+T*
+(51 | Wake | TMR | 25.3) Tj
+T*
+(52 | Wake | TMR | 26.84) Tj
+T*
+(53 | Wake | TMR | 17.44) Tj
+T*
+(54 | Wake | TMR | 22.56) Tj
+T*
+(55 | Wake | TMR | 21.88) Tj
+T*
+(56 | Wake | TMR | 21.13) Tj
+T*
+(57 | Wake | TMR | 22.76) Tj
+ET
+endstream endobj
+8 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >> endobj
+9 0 obj << /Length 1113 >> stream
+BT
+/F1 10 Tf
+72 770 Td
+13 TL
+(58 | Wake | TMR | 30.73) Tj
+T*
+(59 | Wake | TMR | 20.1) Tj
+T*
+(60 | Wake | TMR | 28.36) Tj
+T*
+(61 | Wake | Control | 14.43) Tj
+T*
+(62 | Wake | Control | 20.49) Tj
+T*
+(63 | Wake | Control | 22.73) Tj
+T*
+(64 | Wake | Control | 24.64) Tj
+T*
+(65 | Wake | Control | 25.2) Tj
+T*
+(66 | Wake | Control | 25.57) Tj
+T*
+(67 | Wake | Control | 20.43) Tj
+T*
+(68 | Wake | Control | 19.92) Tj
+T*
+(69 | Wake | Control | 25.86) Tj
+T*
+(70 | Wake | Control | 21.14) Tj
+T*
+(71 | Wake | Control | 16.26) Tj
+T*
+(72 | Wake | Control | 16.9) Tj
+T*
+(73 | Wake | Control | 17.86) Tj
+T*
+(74 | Wake | Control | 24.24) Tj
+T*
+(75 | Wake | Control | 22.64) Tj
+T*
+(76 | Wake | Control | 25.11) Tj
+T*
+(77 | Wake | Control | 20.08) Tj
+T*
+(78 | Wake | Control | 22.71) Tj
+T*
+(79 | Wake | Control | 24.82) Tj
+T*
+(80 | Wake | Control | 20.61) Tj
+T*
+() Tj
+T*
+(Interactive Graph) Tj
+T*
+(An interactive Plotly graph is available at: reports/sleep_memory_interactive_graph.html) Tj
+T*
+() Tj
+T*
+(Data Integrity Note) Tj
+T*
+(All values in this PDF were computed or transcribed from the provided CSV without fabrication.) Tj
 ET
 endstream endobj
 xref
-0 6
+0 10
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
-0000000115 00000 n 
-0000000241 00000 n 
-0000000311 00000 n 
-trailer << /Size 6 /Root 1 0 R >>
+0000000127 00000 n 
+0000000197 00000 n 
+0000000323 00000 n 
+0000002466 00000 n 
+0000002592 00000 n 
+0000004375 00000 n 
+0000004501 00000 n 
+trailer << /Size 10 /Root 1 0 R >>
 startxref
-2158
+5666
 %%EOF
